@@ -1,0 +1,37 @@
+datasource db {
+  provider = "mysql"
+  url      = env("SERVICE_DATABASE_DEV_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model GiftCard {
+  id             BigInt      @id @default(autoincrement())
+  cuid           String      @unique @default(cuid())
+  cardCode       String      @unique
+  cardPwd        String      @default(cuid())
+  cardValue      Int         @default(0) @db.SmallInt
+  createdAt      DateTime    @default(now())
+  redeemed       Boolean     @default(false)
+  redemption     Redemption? @relation(fields: [redemptionCuid], references: [cuid])
+  redemptionCuid String?
+}
+
+model Redemption {
+  id          BigInt     @id @default(autoincrement())
+  cuid        String     @unique @default(cuid())
+  createdAt   DateTime   @default(now())
+  modifiedAt  DateTime   @default(now())
+  totalValue  Int        @default(0)
+  phoneNumber String     @unique @db.Char(11)
+  giftCards   GiftCard[]
+}
+
+model User {
+  id       Int    @id @db.TinyInt
+  name     String @unique @db.VarChar(30)
+  password String @db.Char(44)
+  salt     String @db.Char(12)
+}
