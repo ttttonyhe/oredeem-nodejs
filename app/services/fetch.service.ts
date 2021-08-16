@@ -7,6 +7,13 @@ export class FetchService {
 		return await prisma.giftCard.findMany({
 			where: {
 				redeemed: false
+			},
+			select: {
+				cuid: true,
+				cardCode: true,
+				cardValue: true,
+				createdAt: true,
+				redeemed: true,
 			}
 		});
 	}
@@ -15,6 +22,18 @@ export class FetchService {
 		return await prisma.giftCard.findMany({
 			where: {
 				redeemed: true
+			},
+			select: {
+				cuid: true,
+				cardCode: true,
+				cardValue: true,
+				createdAt: true,
+				redeemed: true,
+				redemption: {
+					select: {
+						phoneNumber: true
+					}
+				}
 			}
 		})
 	}

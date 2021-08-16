@@ -28,12 +28,13 @@ export class RedeemController {
 
 
 		// validate cardCode and cardPwd
-		if (!info.cardCode || !info.cardPwd || info.cardCode.length != 19 || info.cardPwd.length != 25) {
+		if (!info.cardCode || !info.cardPwd || info.cardCode.length != 23 || info.cardPwd.length != 25) {
 			throw new BadRequestError("Invalid card number");
 		}
 
 		// get unique card info
-		if (!await this.redeemService.validateCard(info)) {
+		const validationResult = await this.redeemService.validateCard(info)
+		if (!validationResult) {
 			throw new NotFoundError("Invalid card");
 		}
 
