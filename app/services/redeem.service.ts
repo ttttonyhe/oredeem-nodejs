@@ -8,6 +8,10 @@ export interface RedeemInfoInterface {
 	phoneNumber: string;
 }
 
+export interface ConfirmationInterface {
+	redemptionCuid: string;
+}
+
 @Service()
 export class RedeemService {
 	async validateCard(info: RedeemInfoInterface) {
@@ -93,4 +97,15 @@ export class RedeemService {
 		}
 	}
 
+	// manually redeem card through cuid
+	async redeemManually(info: ConfirmationInterface) {
+		return await prisma.redemption.update({
+			where: {
+				cuid: info.redemptionCuid
+			},
+			data: {
+				manuallyRedeemed: true
+			}
+		})
+	}
 }

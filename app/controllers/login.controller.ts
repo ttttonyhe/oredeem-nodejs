@@ -58,7 +58,7 @@ export class LoginController {
 
 		// not result is found
 		if (!findResult) {
-			throw new NotFoundError("User does not exists");
+			throw new NotFoundError("User does not exists/password is incorrect");
 		}
 
 		// sign current password

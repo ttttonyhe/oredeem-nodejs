@@ -16,4 +16,9 @@ export class FetchController {
 	async fetchUnRedeemedCards() {
 		return this.fetchService.fetchUnRedeemed();
 	}
+
+	@Get("/redemption")
+	async fetchRedemption() {
+		return this.fetchService.fetchRedemption();
+	}
 }

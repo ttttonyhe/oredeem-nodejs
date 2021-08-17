@@ -1,6 +1,7 @@
 import { Service } from "typedi";
 import prisma from "../helpers/prisma.client";
 import jwt from "jsonwebtoken";
+import crypto from "crypto";
 
 export interface CredentialInterface {
 	username: string;
@@ -15,7 +16,7 @@ export interface ProfileInterface {
 @Service()
 export class LoginService {
 	async find(user: CredentialInterface) {
-		return prisma.user.findUnique({
+		return await prisma.user.findUnique({
 			where: {
 				name: user.username,
 			},

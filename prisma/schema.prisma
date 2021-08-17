@@ -20,18 +20,20 @@ model GiftCard {
 }
 
 model Redemption {
-  id          BigInt     @id @default(autoincrement())
-  cuid        String     @unique @default(cuid())
-  createdAt   DateTime   @default(now())
-  modifiedAt  DateTime   @default(now())
-  totalValue  Int        @default(0)
-  phoneNumber String     @unique @db.Char(11)
-  giftCards   GiftCard[]
+  id               BigInt     @id @default(autoincrement())
+  cuid             String     @unique @default(cuid())
+  createdAt        DateTime   @default(now())
+  modifiedAt       DateTime   @default(now())
+  totalValue       Int        @default(0)
+  phoneNumber      String     @unique @db.Char(11)
+  manuallyRedeemed Boolean    @default(false)
+  giftCards        GiftCard[]
 }
 
 model User {
-  id       Int    @id @db.TinyInt
-  name     String @unique @db.VarChar(30)
-  password String @db.Char(44)
-  salt     String @db.Char(12)
+  id         Int     @id @db.TinyInt
+  name       String  @unique @db.VarChar(30)
+  password   String  @db.Char(44)
+  salt       String  @db.Char(12)
+  redeemable Boolean @default(false)
 }

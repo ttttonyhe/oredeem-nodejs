@@ -37,4 +37,17 @@ export class FetchService {
 			}
 		})
 	}
+
+	async fetchRedemption() {
+		return await prisma.redemption.findMany({
+			select: {
+				cuid: true,
+				totalValue: true,
+				giftCards: true,
+				phoneNumber: true,
+				manuallyRedeemed: true,
+				modifiedAt: true,
+			}
+		})
+	}
 }

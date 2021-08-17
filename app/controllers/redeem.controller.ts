@@ -8,7 +8,7 @@ import {
 import { Service } from "typedi";
 import validator from "validator";
 import { RedeemService } from "../services/redeem.service";
-import { RedeemInfoInterface } from "../services/redeem.service";
+import { RedeemInfoInterface, ConfirmationInterface } from "../services/redeem.service";
 
 @JsonController()
 @Service()
@@ -52,5 +52,20 @@ export class RedeemController {
 				value: updateResult.cardValue
 			})
 		}
+	}
+
+	@Post("/confirm")
+	async confirmRedemption(@Body() info: ConfirmationInterface) {
+		const result = await this.redeemService.redeemManually(info);
+
+		if (result && result.manuallyRedeemed) {
+			return JSON.stringify({
+				status: true
+			})
+		}
+
+		return JSON.stringify({
+			status: false
+		})
 	}
 }
