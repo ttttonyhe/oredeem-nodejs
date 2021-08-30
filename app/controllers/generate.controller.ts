@@ -38,7 +38,7 @@ export class GenerateController {
 			})
 		} else {
 			return JSON.stringify({
-				status: false,
+				status: true,
 				count: generatedCards.count,
 				msg: generatedCards.count + " 张面值 " + info.value + " 的兑换卡被创建"
 			})

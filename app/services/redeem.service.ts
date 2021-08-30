@@ -37,7 +37,7 @@ export class RedeemService {
 			throw new NotFoundError("Gift card not found");
 		})
 
-		if (cardDetails) {
+		if (cardDetails && !cardDetails.redeemed) {
 			// get redemption details (if any)
 			const redemptionDetail = await prisma.redemption.findUnique({
 				where: {

@@ -1,4 +1,4 @@
-import { Get, JsonController } from "routing-controllers";
+import { Get, JsonController, QueryParam } from "routing-controllers";
 import { Service } from "typedi";
 import { FetchService } from "../services/fetch.service";
 
@@ -8,17 +8,17 @@ export class FetchController {
 	constructor(private fetchService: FetchService) { }
 
 	@Get("/redeemed")
-	async fetchRedeemedCards() {
-		return this.fetchService.fetchRedeemed();
+	async fetchRedeemedCards(@QueryParam("page") page: number) {
+		return this.fetchService.fetchRedeemed(page);
 	}
 
 	@Get("/unredeemed")
-	async fetchUnRedeemedCards() {
-		return this.fetchService.fetchUnRedeemed();
+	async fetchUnRedeemedCards(@QueryParam("page") page: number) {
+		return this.fetchService.fetchUnRedeemed(page);
 	}
 
 	@Get("/redemption")
-	async fetchRedemption() {
-		return this.fetchService.fetchRedemption();
+	async fetchRedemption(@QueryParam("page") page: number) {
+		return this.fetchService.fetchRedemption(page);
 	}
 }

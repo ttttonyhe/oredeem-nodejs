@@ -14,10 +14,16 @@ export class DeleteService {
 			}
 		})
 	}
-	async bulkDelete(includeRedeemed: boolean) {
-		// delete all gift card records
-		if (includeRedeemed) {
-			return await prisma.giftCard.deleteMany({});
+	async bulkDelete(redeemed: boolean) {
+		// delete redeemed gift card records
+		if (redeemed) {
+			await prisma.redemption.deleteMany({});
+
+			return await prisma.giftCard.deleteMany({
+				where: {
+					redeemed: true
+				}
+			});
 		} else {
 			// delete all unredeemed gift card records
 			return await prisma.giftCard.deleteMany({

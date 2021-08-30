@@ -40,20 +40,20 @@ export class ManageController {
 
 	@Post("/bulkDelete")
 	async bulkDelete(@Body() info: {
-		includeRedeemed: boolean
+		redeemed: boolean
 	}) {
-		const deletedCard = await this.deleteService.bulkDelete(info.includeRedeemed);
+		const deletedCard = await this.deleteService.bulkDelete(info.redeemed);
 
 		if (!deletedCard.count) {
 			return JSON.stringify({
 				status: false,
-				msg: "No card has been deleted"
+				msg: "没有卡被删除"
 			})
 		} else {
 			return JSON.stringify({
 				status: true,
 				count: deletedCard.count,
-				msg: "Deletion complete"
+				msg: `${deletedCard.count} 张充值卡已被删除`
 			})
 		}
 	}
